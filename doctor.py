@@ -95,6 +95,8 @@ class Doctor:
 
     # Displays all the doctors’ information
     def display_doctors_list(self):
+        # First, read the file so that the list is updated
+        self.read_doctors_file()
         # loop the doctor list to print out each doctor's information correctly
         for doctor in self.doctors:
             print ("{:<4} {:<22} {:<15} {:<15} {:<15} {:<10}".format(doctor.id, doctor.name, doctor.specilist , doctor.timing, doctor.qualification, doctor.room_no))
@@ -113,11 +115,10 @@ class Doctor:
     # add a new doctor to the file
     def add_dr_to_file(self):
         # call enter_dr_info() to get new data from the user
+        self.enter_dr_info()
         # call format_dr_info() to format new data
+        formatted_doc = self.format_dr_info()
         # then write the formatted data to doctors.txt
         with open("doctors.txt", "a") as doc_file:
-            new_doctor = self.enter_dr_info()
-            self.doctors.append(new_doctor)
-            formatted_doc = self.format_dr_info(new_doctor)
             doc_file.write(f"\n{formatted_doc}")
         print("Finished adding a new doctor to doctors.txt.")
